@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Envelope Animation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url("123.jpg");
+            overflow: hidden;
+        }
+        .container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            cursor: pointer;
+        }
+        .closed-envelope, .open---envelope, .open-----envelope {
+            position: absolute;
+            width: 100%;
+            transition: opacity 0.3s ease;
+        }
+        .closed-envelope {
+            position: absolute;
+            z-index:1;
+        }
+        .open---envelope {
+            position: absolute;
+            z-index:-1;
+        }
+        .open-----envelope {
+            position: absolute;
+            z-index:1;
+        }
+        .letter {
+            position: absolute;
+            width: 70%;
+            left: 11.5%;
+            bottom: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.5s ease;
+            bottom: -110px;
+            z-index:0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="envelope">
+        <img src="closed-envelope.jpg" alt="Closed Envelope" class="closed-envelope">
+        <img src="open---envelope.png" alt="Open Envelope" class="open---envelope" style="opacity: 0;">
+        <img src="open-----envelope.png" alt="Open Envelope" class="open-----envelope" style="opacity: 1;">
+        <img src="letter.jpg" alt="Letter" class="letter">
+    </div>
+
+    <script>
+        const envelope = document.getElementById("envelope");
+        const closed = document.querySelector(".closed-envelope");
+        const open1 = document.querySelector(".open---envelope");
+        const open2 = document.querySelector(".open-----envelope");
+        const letter = document.querySelector(".letter");
+
+        envelope.addEventListener("mouseenter", () => {
+            gsap.to(closed, { opacity: 0, duration: 0.3 });
+            gsap.to(open1, { opacity: 1, duration: 0.3 });
+            
+            gsap.to(letter, { opacity: 1, y: -100, duration: 0.5 });
+        });
+
+        envelope.addEventListener("mouseleave", () => {
+            gsap.to(letter, { opacity: 0, y: 0, duration: 0.5 });
+            gsap.to(open1, { opacity: 0, duration: 0.3 });
+            
+            gsap.to(closed, { opacity: 1, duration: 0.3 });
+        });
+    </script>
+</body>
+</html>
